@@ -26,9 +26,11 @@ $stmt->execute();
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
-    echo "<br>" . "<a href='delete.php?id=" . $row["id"] . "''>";
+    echo "<br>" . "<p style='display: inline-block;'>";
     echo $row["name"];
-    echo "</a>";
+    echo "</p>";
+    echo "<a href='edit.php?id=" . $row["id"] . "'>edit</a>";
+    echo "<a href='delete.php?id=" . $row["id"] . "'>delete</a>";
 }
 
 if (isset($_POST["name"])) {
