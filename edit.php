@@ -1,10 +1,13 @@
-<form method="POST">
-    Name:<br>
-    <input type="text" name="name">
-    Time:
-    <input type="text" name="time">
-    <input type="submit" value="Submit">
-</form>
+<div style='border-style: solid;'>
+    Edit:
+    <form method="POST">
+        Name:<br>
+        <input type="text" name="name">
+        Time:
+        <input type="text" name="time">
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 <?php
 
@@ -22,13 +25,14 @@ if (isset($_GET['listId'])) {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        header("Location: {$_SERVER['HTTP_REFERER']}");
-        exit;
+        header("Location: ./tasks.php?listId=" . $_GET['listId']);
 
         return true;
     }
 } else {
     if (isset($_POST["name"])) {
+        echo isset($_POST["name"]) ? 1 : 0;
+        echo "gey";
         $name = $_POST["name"];
         $id = $_GET['id'];
 
@@ -37,8 +41,7 @@ if (isset($_GET['listId'])) {
         $stmt->bindParam(':id', $id);
         $stmt->execute();
 
-        header("Location: {$_SERVER['HTTP_REFERER']}");
-        exit;
+        header("Location: ./");
 
         return true;
     }

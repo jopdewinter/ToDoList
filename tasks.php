@@ -7,13 +7,16 @@
 
 <h1>To do:</h1>
 
-<form method="POST">
-    Name:<br>
-    <input type="text" name="name">
-    Time:
-    <input type="text" name="time">
-    <input type="submit" value="Submit">
-</form>
+<div style='border-style: solid;'>
+    Add task:
+    <form method="POST">
+        Name:<br>
+        <input type="text" name="name">
+        Time:
+        <input type="text" name="time">
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 </body>
 </html>
@@ -36,8 +39,8 @@ foreach ($rows as $row) {
     echo "</p>";
     echo "<p>status: " . $row["status"] . "</p>";
     echo "<p>time: " . $row["time"] . "</p>";
-    echo "<a href='edit.php?id=" . $row["id"] . "&listId=" . $listId . "'>edit</a>";
-    echo "<a href='delete.php?id=" . $row["id"] . "&listId=" . $listId . "'>delete</a>";
+    echo "<a href='edit.php?id=" . $row["id"] . "&listId=" . $listId . "'> edit</a>";
+    echo "<a href='delete.php?id=" . $row["id"] . "&listId=" . $listId . "'> delete</a>";
     echo "<div>";
 }
 
@@ -50,7 +53,6 @@ if (isset($_POST["name"])) {
     $stmt->execute();
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit;
 
     return true;
 }

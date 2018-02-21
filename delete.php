@@ -10,7 +10,6 @@ if (isset($_GET['listId'])) {
     $stmt->execute();
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit;
 
     return true;
 } else {
@@ -19,7 +18,6 @@ if (isset($_GET['listId'])) {
     $stmt->execute();
 
     header("Location: {$_SERVER['HTTP_REFERER']}");
-    exit;
 
     return true;
 }
