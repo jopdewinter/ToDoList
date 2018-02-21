@@ -2,7 +2,6 @@
 <html>
 <head>
     <title>To do list</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
@@ -26,17 +25,22 @@ $stmt->execute();
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($rows as $row) {
-    echo "<br>" . "<p style='display: inline-block;'>";
+    echo "<div style='border-style: dashed;'>";
+    echo "<br>" . "<a style='display: inline-block;' href='tasks.php?listId=" . $row["id"] . "'>";
     echo $row["name"];
-    echo "</p>";
+    echo "</a>";
     echo "<a href='edit.php?id=" . $row["id"] . "'>edit</a>";
     echo "<a href='delete.php?id=" . $row["id"] . "'>delete</a>";
+    echo "</div>";
 }
 
 if (isset($_POST["name"])) {
     $stmt = $conn->prepare("INSERT INTO list(name) VALUES (:listname)");
     $stmt->bindParam(':listname', $_POST["name"]);
     $stmt->execute();
+
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+    exit;
 
     return true;
 }

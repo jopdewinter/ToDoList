@@ -4,8 +4,22 @@ include "config.php";
 
 $id = $_GET['id'];
 
-$stmt = $conn->prepare("DELETE FROM list WHERE id = $id");
-$stmt->bindParam(':id', $_POST["id"]);
-$stmt->execute();
+if (isset($_GET['listId'])) {
+    $stmt = $conn->prepare("DELETE FROM tasks WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
 
-return true;
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+    exit;
+
+    return true;
+} else {
+    $stmt = $conn->prepare("DELETE FROM list WHERE id = :id");
+    $stmt->bindParam(':id', $id);
+    $stmt->execute();
+
+    header("Location: {$_SERVER['HTTP_REFERER']}");
+    exit;
+
+    return true;
+}
