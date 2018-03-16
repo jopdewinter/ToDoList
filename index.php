@@ -1,27 +1,9 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>To do list</title>
-</head>
-<body>
-
 <h1>To do:</h1>
-
-<div style='border-style: solid;'>
-    Add list:
-    <form method="POST">
-        Name:<br>
-        <input type="text" name="name">
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
-</body>
-</html>
 
 <?php
 
 include 'config.php';
+include 'form.php';
 
 $stmt = $conn->prepare("SELECT * FROM list");
 $stmt->execute();

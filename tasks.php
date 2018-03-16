@@ -1,34 +1,24 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>To do list</title>
-</head>
-<body>
-
 <h1>To do:</h1>
-
-<div style='border-style: solid;'>
-    Add task:
-    <form method="POST">
-        Name:<br>
-        <input type="text" name="name">
-        Time:
-        <input type="text" name="time">
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
-</body>
-</html>
 
 <?php
 
 include 'config.php';
+include 'form.php';
 
 $listId = $_GET['listId'];
 $status = "not done";
 
-$stmt = $conn->prepare("SELECT * FROM tasks WHERE listId = $listId");
+$stmt = $conn->prepare("SELECT name FROM list WHERE id = :listId");
+$stmt->bindParam(':listId', $listId);
+$stmt->execute();
+
+$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($rows as $row) {
+    echo $row["name"] . " :";
+}
+
+$stmt = $conn->prepare("SELECT * FROM tasks WHERE listId = :listId");
+$stmt->bindParam(':listId', $listId);
 $stmt->execute();
 
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);

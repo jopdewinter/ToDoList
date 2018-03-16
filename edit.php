@@ -1,17 +1,27 @@
-<div style='border-style: solid;'>
-    Edit:
-    <form method="POST">
-        Name:<br>
-        <input type="text" name="name">
-        Time:
-        <input type="text" name="time">
-        <input type="submit" value="Submit">
-    </form>
-</div>
-
 <?php
 
 include "config.php";
+
+if (isset($_GET['id'])) {
+    $stmt = $conn->prepare("SELECT name, time FROM tasks WHERE id = :id");
+    $stmt->bindParam(':id', $_GET['id']);
+    $stmt->execute();
+
+    $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $name = $rows[0]["name"];
+    $time = $rows[0]["time"];
+}
+
+echo '<div style=\'border-style: solid;\'>
+    Edit:
+    <form method="POST">
+        Name:<br>
+        <input placeholder="' . $name . '" type="text" name="name">
+        Time:
+        <input placeholder="' . $time . '" type="text" name="time">
+        <input type="submit" value="Submit">
+    </form>
+</div>';
 
 if (isset($_GET['listId'])) {
     if (isset($_POST["name"])) {
@@ -32,7 +42,6 @@ if (isset($_GET['listId'])) {
 } else {
     if (isset($_POST["name"])) {
         echo isset($_POST["name"]) ? 1 : 0;
-        echo "gey";
         $name = $_POST["name"];
         $id = $_GET['id'];
 
